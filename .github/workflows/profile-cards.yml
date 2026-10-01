@@ -1,6 +1,6 @@
 # Builds the stats, top-languages and contribution-snake images used in README.md
-# and commits them to profile/. Generating them here (instead of linking to the
-# public github-readme-stats server) means they never break from rate limits.
+# and commits them to profile/. Generating them here (instead of linking to a
+# public card server) means they never break from rate limits.
 
 name: Profile cards
 
@@ -10,7 +10,7 @@ on:
   workflow_dispatch: # "Run workflow" button in the Actions tab
   push:
     branches: [main]
-    paths: [".github/workflows/profile-cards.yml"]
+    paths: [".github/workflows/profile-cards.yml", ".github/scripts/cards.py"]
 
 permissions:
   contents: write
@@ -25,40 +25,14 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      # Colours match the banner: copper titles, soldermask-green icons, transparent background.
-      - name: Stats card (light)
-        uses: stats-organization/github-readme-stats-action@v2
-        with:
-          card: stats
-          options: username=${{ github.repository_owner }}&show_icons=true&hide_rank=true&hide_border=true&bg_color=00000000&title_color=8A5A1C&text_color=24292F&icon_color=0D6B4F
-          path: profile/stats-light.svg
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Stats card (dark)
-        uses: stats-organization/github-readme-stats-action@v2
-        with:
-          card: stats
-          options: username=${{ github.repository_owner }}&show_icons=true&hide_rank=true&hide_border=true&bg_color=00000000&title_color=D9A75C&text_color=C9D4CC&icon_color=4FB08E
-          path: profile/stats-dark.svg
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      # hide=html keeps static/exported HTML in website repos from drowning out
-      # TypeScript and Python. Delete it if you want HTML counted.
-      - name: Top languages (light)
-        uses: stats-organization/github-readme-stats-action@v2
-        with:
-          card: top-langs
-          options: username=${{ github.repository_owner }}&layout=compact&langs_count=8&hide=html&hide_border=true&bg_color=00000000&title_color=8A5A1C&text_color=24292F
-          path: profile/top-langs-light.svg
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Top languages (dark)
-        uses: stats-organization/github-readme-stats-action@v2
-        with:
-          card: top-langs
-          options: username=${{ github.repository_owner }}&layout=compact&langs_count=8&hide=html&hide_border=true&bg_color=00000000&title_color=D9A75C&text_color=C9D4CC
-          path: profile/top-langs-dark.svg
-          token: ${{ secrets.GITHUB_TOKEN }}
+      # Stats and top-languages cards, light and dark. Colours match the banner.
+      # Uses public data only, so the built-in token is enough; private
+      # contributions are counted when they're shown on the profile.
+      - name: Stats and language cards
+        run: python .github/scripts/cards.py
+        env:
+          GH_USER: ${{ github.repository_owner }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Contribution snake
         uses: Platane/snk/svg-only@v3

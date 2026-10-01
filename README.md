@@ -22,11 +22,11 @@ I'm Atharva, a developer from Pune who likes owning a product end to end: the mo
 <p>
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="./profile/stats-dark.svg">
-    <img src="./profile/stats-light.svg" alt="Atharva's GitHub stats" height="165">
+    <img src="./profile/stats-light.svg" alt="Atharva's GitHub stats">
   </picture>
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="./profile/top-langs-dark.svg">
-    <img src="./profile/top-langs-light.svg" alt="Most used languages" height="165">
+    <img src="./profile/top-langs-light.svg" alt="Most used languages">
   </picture>
 </p>
 
