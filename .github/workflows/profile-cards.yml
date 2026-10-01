@@ -1,4 +1,4 @@
-# Builds the stats, top-languages and contribution-snake images used in README.md
+# Builds the recent-repos, top-languages and contribution-snake images used in README.md
 # and commits them to profile/. Generating them here (instead of linking to a
 # public card server) means they never break from rate limits.
 
@@ -25,10 +25,9 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      # Stats and top-languages cards, light and dark. Colours match the banner.
-      # Uses public data only, so the built-in token is enough; private
-      # contributions are counted when they're shown on the profile.
-      - name: Stats and language cards
+      # Recently pushed repos and top languages, light and dark. Colours match
+      # the banner. Uses public repo data only, so the built-in token is enough.
+      - name: Recent repos and language cards
         run: python .github/scripts/cards.py
         env:
           GH_USER: ${{ github.repository_owner }}

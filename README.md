@@ -21,8 +21,8 @@ I'm Atharva, a developer from Pune who likes owning a product end to end: the mo
 
 <p>
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="./profile/stats-dark.svg">
-    <img src="./profile/stats-light.svg" alt="Atharva's GitHub stats">
+    <source media="(prefers-color-scheme: dark)" srcset="./profile/recent-dark.svg">
+    <img src="./profile/recent-light.svg" alt="Recently pushed repositories">
   </picture>
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="./profile/top-langs-dark.svg">
